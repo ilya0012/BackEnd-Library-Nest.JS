@@ -1,4 +1,20 @@
-import { Controller } from '@nestjs/common';
+import { Body, Controller, Post, Put } from '@nestjs/common';
 
 @Controller('books')
-export class BooksController {}
+export class BooksController {
+
+    @Post()
+    addBook() {
+        
+    }
+
+    @Post()
+    addBookToUser(@Body() body) {
+
+    }
+
+    @Put()
+    returnBook() {
+
+    }
+}

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -6,18 +6,21 @@ import { UpdateUserDto } from './dto/update-user.dto';
 export class UsersController {
 
     @Post()
+    @HttpCode(HttpStatus.CREATED)
     addUser(@Body() createUserDto: CreateUserDto) {
         return `name: ${createUserDto.name} lastName: ${createUserDto.lastName}`
     }
     
-    @Put()
+    @Put('id')
+    
     updateUser(@Body() updateUserDto: UpdateUserDto, @Param('id') id: string) {
-
+        return 'Updated' + id
     }
 
     @Delete(':id') 
+    @HttpCode(HttpStatus.ACCEPTED)
     deleteUser(@Param('id') id: string) {
-      return 'Deleted' + id
+        return 'Deleted' + id
     }
 
     @Get()
@@ -26,11 +29,13 @@ export class UsersController {
     }
 
     @Get()
+    @HttpCode(HttpStatus.OK)
     getAllUsers(): string {
         return 'getAllUsers'
     }
 
     @Get('id')
+    @HttpCode(HttpStatus.OK)
     getInformation(@Param('id') id: string): string {
         return 'getOne' + id    
     }
