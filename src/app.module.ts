@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersController } from './users/users.controller';
-import { BooksController } from './books/books.controller';
-import { UsersService } from './users/users.service';
 import { UsersModule } from './users/users.module';
+import { BooksModule } from './books/books.module';
+import { Connection } from 'typeorm';
+import { User } from './users/entity/user.entity';
+import { Books } from './users/entity/books.entity';
+
 
 @Module({
   imports: [
@@ -16,12 +18,16 @@ import { UsersModule } from './users/users.module';
       username: 'root',
       password: 'password',
       database: 'library',
-      entities: [],
+      entities: [User, Books],
      synchronize: true,
     }),
     UsersModule,
+    BooksModule,
   ],
-  controllers: [AppController, UsersController, BooksController],
-  providers: [AppService, UsersService],
+  controllers: [AppController],
+  providers: [AppService],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(private connection: Connection) {}
+
+}

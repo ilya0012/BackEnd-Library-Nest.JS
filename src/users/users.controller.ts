@@ -1,44 +1,44 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
+import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import { User } from './entity/user.entity';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
 
+    constructor(private readonly usersService: UsersService) {}
+
     @Post()
-    @HttpCode(HttpStatus.CREATED)
-    addUser(@Body() createUserDto: CreateUserDto) {
-        return `name: ${createUserDto.name} lastName: ${createUserDto.lastName}`
+    async createNewUser(): Promise<User>{
+        return this.usersService.createUser('Ilya', 'specialForTest') // userName and password  
     }
     
-    @Put('id')
-    
-    updateUser(@Body() updateUserDto: UpdateUserDto, @Param('id') id: string) {
-        return 'Updated' + id
+    @Put()
+    async updateUser(): Promise<User> {
+        return this.usersService.updateUser(1, 'Michael', 'specialForUpdate') // UPDATE NAME and PASS by ID
     }
 
-    @Delete(':id') 
-    @HttpCode(HttpStatus.ACCEPTED)
-    deleteUser(@Param('id') id: string) {
-        return 'Deleted' + id
+    @Delete()
+    async deleteUser(): Promise<User> {
+        return this.usersService.deleteUser(1) // DELETE ONE by id
+    }
+
+    @Put('sub')
+    async alterSub(): Promise<User>{
+        return this.usersService.buySubscription(1) // change sub from false to true
     }
 
     @Get()
-    hasBoughtOrNot(): boolean {
-        return true
+    async findEveryone(): Promise<User[]>{
+        return this.usersService.findAll() // massive of users
+    }
+ 
+    @Get('user')
+    async findUser(): Promise<User> {
+        return this.usersService.findOne(1) // SEARCH ONE by ID
     }
 
-    @Get()
-    @HttpCode(HttpStatus.OK)
-    getAllUsers(): string {
-        return 'getAllUsers'
-    }
-
-    @Get('id')
-    @HttpCode(HttpStatus.OK)
-    getInformation(@Param('id') id: string): string {
-        return 'getOne' + id    
-    }
-
+    
+    
+    
 
 }
