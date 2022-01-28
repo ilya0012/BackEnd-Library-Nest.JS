@@ -5,8 +5,8 @@ import { AppService } from './app.service';
 import { UsersModule } from './users/users.module';
 import { BooksModule } from './books/books.module';
 import { Connection } from 'typeorm';
-import { User } from './users/entity/user.entity';
-import { Books } from './users/entity/books.entity';
+import { User } from 'src/entity/user.entity';
+import { Books } from 'src/entity/books.entity';
 
 
 @Module({

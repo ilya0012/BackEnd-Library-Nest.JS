@@ -3,12 +3,13 @@ import { User } from './user.entity';
 
 @Entity()
 export class Books {
-  @PrimaryGeneratedColumn()
-  id: number;
 
-  @Column()
-  bookName: string;
+  @PrimaryColumn()
+  bookName: string
 
+  @Column({default: true})
+  available: boolean
+  
   @ManyToOne(type=> User, user => user.books)
   owner: User
 }

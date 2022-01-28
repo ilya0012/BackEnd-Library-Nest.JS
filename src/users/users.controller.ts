@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Post, Put } from '@nestjs/common';
-import { User } from './entity/user.entity';
+import { Body, Controller, Delete, Get, Header, HttpCode, HttpStatus, Param, Patch, Post, Put } from '@nestjs/common';
+import { User } from 'src/entity/user.entity';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -7,7 +7,7 @@ export class UsersController {
 
     constructor(private readonly usersService: UsersService) {}
 
-    @Post()
+    @Post('createUser')
     async createNewUser(): Promise<User>{
         return this.usersService.createUser('Ilya', 'specialForTest') // userName and password  
     }
@@ -22,9 +22,9 @@ export class UsersController {
         return this.usersService.deleteUser(1) // DELETE ONE by id
     }
 
-    @Put('sub')
+    @Patch('sub')
     async alterSub(): Promise<User>{
-        return this.usersService.buySubscription(1) // change sub from false to true
+        return this.usersService.buySubscription(13) // change sub from false to true
     }
 
     @Get()
@@ -37,6 +37,15 @@ export class UsersController {
         return this.usersService.findOne(1) // SEARCH ONE by ID
     }
 
+    @Post('takeABook')
+    async takeBook(): Promise<User> {
+        return this.usersService.takeBook(13, "5th book")
+    }
+
+    @Patch('returnBook')
+    async returnBook(): Promise<User> {
+        return this.usersService.returnBook(13, "5th book")
+    }
     
     
     
