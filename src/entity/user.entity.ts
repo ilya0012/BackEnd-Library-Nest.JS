@@ -3,6 +3,7 @@ import { Books } from './books.entity';
 
 @Entity()
 export class User {
+
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -18,7 +19,4 @@ export class User {
   @OneToMany(type => Books, books => books.owner)
   books: Books[]
 
- 
-
-  
 }

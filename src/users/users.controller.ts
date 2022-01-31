@@ -7,24 +7,23 @@ export class UsersController {
 
     constructor(private readonly usersService: UsersService) {}
 
-    @Post('createUser')
+    @Post()
     async createNewUser(): Promise<User>{
-        return this.usersService.createUser('Ilya', 'specialForTest') // userName and password  
+        return this.usersService.createUser('Ilya', 'specialForTest')
     }
-    
     @Put()
     async updateUser(): Promise<User> {
-        return this.usersService.updateUser(1, 'Michael', 'specialForUpdate') // UPDATE NAME and PASS by ID
+        return this.usersService.updateUser(2, 'Michael', 'specialForUpdate') // UPDATE NAME and PASS by ID
     }
 
     @Delete()
     async deleteUser(): Promise<User> {
-        return this.usersService.deleteUser(1) // DELETE ONE by id
+        return this.usersService.deleteUser(2) // DELETE ONE by id
     }
 
-    @Patch('sub')
+    @Patch()
     async alterSub(): Promise<User>{
-        return this.usersService.buySubscription(13) // change sub from false to true
+        return this.usersService.buySubscription(1) // change sub from false to true
     }
 
     @Get()
@@ -37,14 +36,14 @@ export class UsersController {
         return this.usersService.findOne(1) // SEARCH ONE by ID
     }
 
-    @Post('takeABook')
+    @Post('book')
     async takeBook(): Promise<User> {
-        return this.usersService.takeBook(13, "5th book")
+        return this.usersService.takeBook(1, "second book")
     }
 
-    @Patch('returnBook')
+    @Delete('book')
     async returnBook(): Promise<User> {
-        return this.usersService.returnBook(13, "5th book")
+        return this.usersService.returnBook(1, "first book")
     }
     
     
