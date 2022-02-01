@@ -90,15 +90,11 @@ export class UsersService {
     async returnBook(id: number, bookName: string): Promise<User> {
         const book = await this.booksRepository.findOne(bookName)
         const user = await this.usersRepository.findOne(id, {relations: ['books']})
-        console.log(user.books)
-        console.log(book)
-        const example = user.books.includes(book)
-        console.log(example)
-
+        
         try{
         const index = user.books.findIndex(el => el.bookName === bookName)
         
-        if( index == -1){
+        if(index == -1){
             console.log('You have not this book')
         }
         else{
