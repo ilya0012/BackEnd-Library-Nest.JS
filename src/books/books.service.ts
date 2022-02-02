@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Books } from 'src/entity/books.entity';
+import { User } from 'src/entity/user.entity';
 import { Repository } from 'typeorm';
 
 @Injectable()
@@ -8,6 +9,8 @@ export class BooksService {
     constructor(
         @InjectRepository(Books)
         private booksRepository: Repository<Books>,
+        @InjectRepository(User)
+        private usersRepository: Repository<User>
     ) {}
 
     async addBook(bookName: string): Promise<Books> {
@@ -16,6 +19,9 @@ export class BooksService {
     }
 
     findAll(): Promise<Books[]> {
-        return this.booksRepository.find() // SELECT * From BOOKS
+        return this.booksRepository.find() // SELECT ALL * From BOOKS
     }
+
+    
+
 }

@@ -7,15 +7,9 @@ export class BooksController {
 
     constructor(private readonly booksService: BooksService) {}
     
-    
     @Post()
     async addBook() {
         return this.booksService.addBook("second book") // add book 
-    }
-
-    @Put()
-    returnBook() {
-
     }
 
     @Get()
